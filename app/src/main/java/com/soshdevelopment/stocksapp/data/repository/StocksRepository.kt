@@ -4,5 +4,5 @@ import com.soshdevelopment.stocksapp.data.model.StockModel
 
 interface StocksRepository {
 
-    fun getStocksList(): List<StockModel>
+    suspend fun getStocksList(): List<StockModel>
 }

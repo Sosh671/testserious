@@ -4,5 +4,6 @@ import com.soshdevelopment.stocksapp.data.model.StockModel
 
 interface StocksDataSource {
 
-    fun getStocksList(): List<StockModel>
+    suspend fun getStocksListWeekly(): List<StockModel>
+    suspend fun getStocksListMonthly(): List<StockModel>
 }

@@ -3,6 +3,7 @@ buildscript {
     ext {
         koin_version = '3.2.0'
         retrofit_version = '2.9.0'
+        timber_version = '5.0.1'
     }
     repositories {
         google()
@@ -14,6 +15,9 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        def nav_version = "2.4.2"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 

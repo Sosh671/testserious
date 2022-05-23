@@ -13,6 +13,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fabAddStock.setOnClickListener {  }
+        binding.fabAddStock.setOnClickListener {
+            navigateTo(HomeFragmentDirections.toAddFavouriteStockFragment())
+        }
     }
 }

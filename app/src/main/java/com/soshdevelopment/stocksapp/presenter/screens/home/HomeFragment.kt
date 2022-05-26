@@ -1,11 +1,11 @@
-package com.soshdevelopment.stocksapp.presenter.fragments.home
+package com.soshdevelopment.stocksapp.presenter.screens.home
 
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.soshdevelopment.stocksapp.R
 import com.soshdevelopment.stocksapp.databinding.FragmentHomeBinding
-import com.soshdevelopment.stocksapp.presenter.fragments.base.BaseFragment
+import com.soshdevelopment.stocksapp.presenter.screens.base.BaseFragment
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 

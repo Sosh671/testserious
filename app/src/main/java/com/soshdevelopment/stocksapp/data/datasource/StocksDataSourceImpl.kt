@@ -1,38 +1,31 @@
 package com.soshdevelopment.stocksapp.data.datasource
 
 import android.content.res.AssetManager
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.JsonReader
+import com.soshdevelopment.stocksapp.data.model.ResponseWrapper
 import com.soshdevelopment.stocksapp.data.model.StockModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import timber.log.Timber
-import java.io.BufferedReader
 
-class StocksDataSourceImpl(
-    private val gson: Gson,
-    private val assets: AssetManager
-) : StocksDataSource {
+class StocksDataSourceImpl(private val assets: AssetManager) : StocksDataSource {
 
-    override suspend fun getStocksListWeekly(): List<StockModel> = withContext(Dispatchers.IO) {
+    private val json = Json { ignoreUnknownKeys = true }
+
+    override suspend fun getStocksListWeekly(): List<StockModel> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getStocksListMonthly(): List<StockModel> = withContext(Dispatchers.IO) {
         try {
-            val type = object : TypeToken<StockModel>() {}.type
-            val fileReader = BufferedReader(assets.open("week.txt").reader())
-            val jsonReader = JsonReader(fileReader)
-            val list: List<StockModel> = gson.fromJson(jsonReader, type)
-            jsonReader.close()
-            fileReader.close()
-
-            list
+            val stream = assets.open("month.txt")
+            val item = json.decodeFromStream<ResponseWrapper>(stream)
+            stream.close()
+            item.content.quoteSymbols
         } catch (e: Exception) {
             Timber.e(e)
             emptyList()
         }
-    }
-
-
-    override suspend fun getStocksListMonthly(): List<StockModel> {
-        TODO("Not yet implemented")
     }
 }

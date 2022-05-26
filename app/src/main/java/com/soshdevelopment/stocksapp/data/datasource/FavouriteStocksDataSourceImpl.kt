@@ -1,38 +1,37 @@
 package com.soshdevelopment.stocksapp.data.datasource
 
 import android.content.SharedPreferences
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.soshdevelopment.stocksapp.data.model.FavouriteStockModel
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 private const val FAVOURITE_STOCK_KEY = "favourite_stock"
 
 class FavouriteStocksDataSourceImpl(
     private val preferences: SharedPreferences,
-    private val gson: Gson
 ) : FavouriteStocksDataSource {
 
+    private val json = Json { }
+
     override suspend fun addFavouriteStock(stockModel: FavouriteStockModel) {
-        val type = object : TypeToken<FavouriteStockModel>() {}.type
         val favouritesList = getFavouriteStocks() as ArrayList
         favouritesList.add(stockModel)
-        val json = gson.toJson(favouritesList, type)
+        val json = json.encodeToString(favouritesList)
 
         preferences.edit().putString(FAVOURITE_STOCK_KEY, json).apply()
     }
 
     override suspend fun removeFavouriteStock(stockModel: FavouriteStockModel) {
-            val type = object : TypeToken<FavouriteStockModel>() {}.type
-            val favouritesList = getFavouriteStocks() as ArrayList
-            favouritesList.remove(stockModel)
-            val json = gson.toJson(favouritesList, type)
+        val favouritesList = getFavouriteStocks() as ArrayList
+        favouritesList.remove(stockModel)
+        val json = json.encodeToString(favouritesList)
 
-            preferences.edit().putString(FAVOURITE_STOCK_KEY, json).apply()
+        preferences.edit().putString(FAVOURITE_STOCK_KEY, json).apply()
     }
 
     override suspend fun getFavouriteStocks(): List<FavouriteStockModel> {
-        val json = preferences.getString(FAVOURITE_STOCK_KEY, null) ?: return emptyList()
-        val type = object : TypeToken<FavouriteStockModel>() {}.type
-        return gson.fromJson(json, type)
+        val string = preferences.getString(FAVOURITE_STOCK_KEY, null) ?: return emptyList()
+        return json.decodeFromString(string)
     }
 }

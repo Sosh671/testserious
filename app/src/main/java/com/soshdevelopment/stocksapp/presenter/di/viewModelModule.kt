@@ -1,6 +1,6 @@
 package com.soshdevelopment.stocksapp.presenter.di
 
-import com.soshdevelopment.stocksapp.presenter.fragments.addfavouritestock.AddFavouriteStockViewModel
+import com.soshdevelopment.stocksapp.presenter.screens.addfavouritestock.AddFavouriteStockViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

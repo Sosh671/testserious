@@ -1,4 +1,4 @@
-package com.soshdevelopment.stocksapp.presenter.fragments.base
+package com.soshdevelopment.stocksapp.presenter.screens.base
 
 import androidx.lifecycle.ViewModel
 
